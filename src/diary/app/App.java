@@ -24,6 +24,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class App {
 
@@ -69,8 +71,8 @@ public class App {
 		
 		initModel = new DefaultListModel<>();
 		
-		JButton btnNewButton = new JButton("Add");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		JButton addBtn = new JButton("Add");
+		addBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String text = textField.getText();
@@ -81,11 +83,11 @@ public class App {
 				}
 			}
 		});
-		btnNewButton.setBounds(465, 31, 62, 23);
-		frame.getContentPane().add(btnNewButton);
+		addBtn.setBounds(450, 31, 77, 23);
+		frame.getContentPane().add(addBtn);
 		
 		textField = new JTextField();
-		textField.setBounds(214, 32, 241, 20);
+		textField.setBounds(214, 32, 219, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
@@ -94,26 +96,28 @@ public class App {
 		scrollPane.setBounds(10, 11, 192, 239);
 		frame.getContentPane().add(scrollPane);
 		
+		JButton deleteBtn = new JButton("Delete");
 		list = new JList();
 		scrollPane.setViewportView(list);
 		
-		JButton btnNewButton_1 = new JButton("Delete Selected");
-		btnNewButton_1.addMouseListener(new MouseAdapter() {
+		deleteBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		btnNewButton_1.addActionListener(new ActionListener() {
+		deleteBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int index = list.getSelectedIndex();
-				if(index >= 0) {
-					initModel.remove(index);  
-					list.setModel(initModel);
+				int[] indicesList = list.getSelectedIndices();
+				for(int position = indicesList.length-1; position >= 0; position--) {
+					if(indicesList[position] >= 0) {
+						initModel.remove(indicesList[position]);  
+					}
 				}
+				list.setModel(initModel);
 			}
 		});
-		btnNewButton_1.setBounds(433, 92, 107, 52);
-		frame.getContentPane().add(btnNewButton_1);
+		deleteBtn.setBounds(450, 65, 77, 23);
+		frame.getContentPane().add(deleteBtn);
 			
 	}
 }
