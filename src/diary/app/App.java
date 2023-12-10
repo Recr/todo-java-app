@@ -81,22 +81,39 @@ public class App {
 				}
 			}
 		});
-		btnNewButton.setBounds(463, 10, 62, 23);
+		btnNewButton.setBounds(465, 31, 62, 23);
 		frame.getContentPane().add(btnNewButton);
 		
 		textField = new JTextField();
-		textField.setBounds(212, 11, 241, 20);
+		textField.setBounds(214, 32, 241, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(10, 11, 190, 208);
+		scrollPane.setBounds(10, 11, 192, 239);
 		frame.getContentPane().add(scrollPane);
 		
 		list = new JList();
 		scrollPane.setViewportView(list);
+		
+		JButton btnNewButton_1 = new JButton("Delete Selected");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int index = list.getSelectedIndex();
+				if(index >= 0) {
+					initModel.remove(index);  
+					list.setModel(initModel);
+				}
+			}
+		});
+		btnNewButton_1.setBounds(433, 92, 107, 52);
+		frame.getContentPane().add(btnNewButton_1);
 			
 	}
-	
 }
